@@ -5,7 +5,7 @@ return array(
 	//我们用了入口版定 所以下面这行可以注释掉
 	//'DEFAULT_MODULE'    =>    'Home',  // 默认模块	
 	'SHOW_PAGE_TRACE'   =>  true, 
-	'LOAD_EXT_CONFIG'   => 'db', 
+	'LOAD_EXT_CONFIG'   => 'db,wechat', 
 	'URL_CASE_INSENSITIVE'  =>  true,  //url不区分大小写
 	'URL_MODEL'   =>0,
 	'URL_HTML_SUFFIX'  =>'html',

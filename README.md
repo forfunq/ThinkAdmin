@@ -5,7 +5,7 @@
 ## 系统特点
 
 *  基于最新版的ThinkPHP
-*  内置微信第三方API
+*  内置微信第三方API(使用前请修改`Application/Common/Conf/wechat.php`中的配置信息)
 *  前台后入口文件分离
 *  ....
 
@@ -23,17 +23,16 @@
 
 这套系统只写了后台,由于前台需求都不一样,所以没写。
 
-*  开启缓存,请参考<a href="http://document.thinkphp.cn/manual_3_2.html" target="_blank">ThinkPHP手册</a>
+*  开启缓存,请参考[ThinkPHP手册](http://document.thinkphp.cn/manual_3_2.html)
 *  前台配置路由规则
 *  ......
 
 ##项目地址
-Github: <a href="https://github.com/cnsecer/ThinkAdmin">https://github.com/cnsecer/ThinkAdmin</a>
+Github:[https://github.com/cnsecer/ThinkAdmin](https://github.com/cnsecer/ThinkAdmin) 
 
-OSChina: <a href="http://git.oschina.net/cnsecer/ThinkAdmin">http://git.oschina.net/cnsecer/ThinkAdmin</a>
+OSChina: [http://git.oschina.net/cnsecer/ThinkAdmin](http://git.oschina.net/cnsecer/ThinkAdmin)
 
-博客: <a href="http://www.cnsecer.com/8072.html">http://www.cnsecer.com/8072.html</a>
+博客: [http://www.cnsecer.com/8072.html](http://www.cnsecer.com/8072.html)
 
 ## 联系我
-
-QQ群:88852333
+QQ群:`88852333`
