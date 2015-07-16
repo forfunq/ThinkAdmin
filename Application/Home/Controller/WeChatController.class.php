@@ -26,9 +26,7 @@ class WeChatController extends Controller{
     protected $encodingaeskey;
     protected $options;
 
-    public function _initialize(){
-        C('LAYOUT_ON',false);
-    }
+
     public function __construct(){
         $this->token = C("WX_TOKEN"); 
         $this->appid = C("WX_APPID"); 

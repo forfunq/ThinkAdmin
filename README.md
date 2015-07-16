@@ -6,6 +6,7 @@
 
 *  基于最新版的ThinkPHP
 *  内置微信第三方API(使用前请修改`Application/Common/Conf/wechat.php`中的配置信息)
+*  内置第三方登陆API(使用前请修改`Application/Common/Conf/oauth.php`中的配置信息)
 *  前台后入口文件分离
 *  ....
 
