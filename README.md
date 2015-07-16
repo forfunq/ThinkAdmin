@@ -1,6 +1,6 @@
 ﻿## 欢迎使用ThinkPHP通用管理后台
 
-这是一套基于ThinkPHP的通用管理后台,已经开发好了CMS基本的功能,在开发中可以直接拿来使用,然后在本后台基础上继续开发,相信可以为你省区不少时间
+这是一套基于ThinkPHP的通用管理后台,已经开发好了CMS基本的功能,在开发中可以直接拿来使用,然后在本后台基础上继续开发,相信可以为你节省不少时间：）
 
 ## 系统特点
 
@@ -27,6 +27,10 @@
 *  前台配置路由规则
 *  ......
 
+##项目地址
+Github: <a href="https://github.com/cnsecer/ThinkAdmin">https://github.com/cnsecer/ThinkAdmin</a>
+OSChina: <a href="http://git.oschina.net/cnsecer/ThinkAdmin">http://git.oschina.net/cnsecer/ThinkAdmin</a>
+博客: <a href="http://www.cnsecer.com/8072.html">http://www.cnsecer.com/8072.html</a>
 ## 联系我
 
 QQ群:88852333
