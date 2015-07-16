@@ -14,7 +14,7 @@ namespace Home\Controller;
 use Think\Controller;
 use Extend\Wechat;
 
-class WeixinController extends Controller{
+class WeChatController extends Controller{
     /**
      * 微信消息接口入口
      * 所有发送到微信的消息都会推送到该操作
@@ -74,8 +74,11 @@ class WeixinController extends Controller{
     }
 
 
-    //获取openid  然后用openid登陆  并设置session
-
+    
+    /**
+     * 微信登陆DEMO
+     * @return [type] [description]
+     */
     public function getCode()
     {
         $data=array();
