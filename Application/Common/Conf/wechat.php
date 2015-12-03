@@ -5,5 +5,5 @@ return array(
 	'WX_APPID'=>'******',
 	'WX_APPSECRET'=>'************************************',	
 	'WX_ENCODINGAESKEY'=>'************************************',
-	'WX_DOMAIN'=>'http://www.cnsecer.com',
+	'WX_DOMAIN'=>'http://www.cnsecer.com/',
 );

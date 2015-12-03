@@ -40,8 +40,8 @@ class WeChatController extends Controller{
         'appsecret'=>$this->appsecret //填写高级调用功能的密钥
         );
     }
-
-    public function index($id = ''){
+    //微信入口文件
+    public function index(){
 
         $wechat = new Wechat($this->options);
         $wechat->valid();//明文或兼容模式可以在接口验证通过后注释此句，但加密模式一定不能注释，否则会验证失败
@@ -49,9 +49,9 @@ class WeChatController extends Controller{
         switch($type) {
             case Wechat::MSGTYPE_TEXT:
                 $domain = C('WX_DOMAIN');
-                $url = $domain."index.php?m=home&c=wechat&a=getcode";
+                $url = $domain."index.php?m=home&c=Login&a=wechatCallback";
                 $redirect = $wechat->getOauthRedirect($url);
-                $wechat->text("<a href=\"$redirect\">点击登陆</a>,其他功能建设中....")->reply();
+                $wechat->text("<a href=\"$redirect\">点击登陆</a>")->reply();
                 exit;
                     break;
             case Wechat::MSGTYPE_LOCATION:
@@ -70,24 +70,4 @@ class WeChatController extends Controller{
                 $wechat->text("Hello World")->reply();
         }
     }
-
-
-    
-    /**
-     * 微信登陆DEMO
-     * @return [type] [description]
-     */
-    public function getCode()
-    {
-        $data=array();
-        $wechat = new Wechat($this->options);
-        $wxdata = $wechat->getOauthAccessToken();
-        
-        dd($wxdata);
-
-    }
-
-
-
-
 }

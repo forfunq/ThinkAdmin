@@ -3,8 +3,10 @@
 namespace Home\Controller;
 
 use Think\Controller;
-
-class PostController extends Controller{
+/**
+ * 发布文章必须登录
+ */
+class PostController extends BaseController{
 
     public function index($name){
         $this->display();
