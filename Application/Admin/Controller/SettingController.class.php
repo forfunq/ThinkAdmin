@@ -12,7 +12,7 @@ class SettingController extends BaseController
      */
     public function index($key="")
     {
-        if($key == ""){
+        if($key === ""){
             $model = M('setting');  
         }else{
             $where['key'] = array('like',"%$key%");
@@ -93,7 +93,7 @@ class SettingController extends BaseController
         $model = M('setting');
  
         //验证通过
-        $result = $model->delete($id);
+        $result = $model->delete(intval($id));
         if($result){
             $this->success("字段删除成功", U('setting/index'));
         }else{

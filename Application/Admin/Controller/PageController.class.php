@@ -12,7 +12,7 @@ class PageController extends BaseController
      */
     public function index($key="")
     {
-        if($key == ""){
+        if($key === ""){
             $model = M('page');  
         }else{
             $where['title'] = array('like',"%$key%");
@@ -64,7 +64,7 @@ class PageController extends BaseController
     {
         //默认显示添加表单
         if (!IS_POST) {
-            $model = M('page')->where('id='.$id)->find();
+            $model = M('page')->where("id=%d",$id)->find();
             $this->assign('page',$model);
             $this->display();
         }
@@ -89,7 +89,7 @@ class PageController extends BaseController
     public function delete($id)
     {
         $model = M('page');
-        $result = $model->where("id=".$id)->delete();
+        $result = $model->where("id=%d",$id)->delete();
         if($result){
             $this->success("删除成功", U('page/index'));
         }else{

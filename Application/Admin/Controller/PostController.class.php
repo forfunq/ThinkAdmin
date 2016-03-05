@@ -67,7 +67,7 @@ class PostController extends BaseController
     {
         //默认显示添加表单
         if (!IS_POST) {
-            $model = M('post')->where('id='.$id)->find();
+            $model = M('post')->where("id= %d",$id)->find();
             $this->assign("category",getSortedCategory(M('category')->select()));
             $this->assign('post',$model);
             $this->display();
@@ -93,7 +93,7 @@ class PostController extends BaseController
     public function delete($id)
     {
         $model = M('post');
-        $result = $model->where("id=".$id)->delete();
+        $result = $model->where("id= %d",$id)->delete();
         if($result){
             $this->success("删除成功", U('post/index'));
         }else{

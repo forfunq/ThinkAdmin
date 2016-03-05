@@ -11,7 +11,7 @@ class LoginController extends Controller {
     public function login(){
         if(!IS_POST)$this->error("非法请求");
         $member = M('member');
-        $username =I('username');
+        $username =I('username','','addslashes');
         $password =I('password','','md5');
         $code = I('verify','','strtolower');
         //验证验证码是否正确
@@ -19,7 +19,7 @@ class LoginController extends Controller {
             $this->error('验证码错误');
         }
         //验证账号密码是否正确
-        $user = $member->where(array('username'=>$username,'password'=>$password))->find();
+        $user = $member->where("username = %s and password= %s",array($username,$password))->find();
 
         if(!$user) {
             $this->error('账号或密码错误 :(') ;
