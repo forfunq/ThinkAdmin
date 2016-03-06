@@ -12,7 +12,7 @@ class LinksController extends BaseController
      */
     public function index($key="")
     {
-        if($key == ""){
+        if($key === ""){
             $model = M('links');  
         }else{
             $where['title'] = array('like',"%$key%");
@@ -64,7 +64,7 @@ class LinksController extends BaseController
     {
         //默认显示添加表单
         if (!IS_POST) {
-            $model = M('links')->where('id='.$id)->find();
+            $model = M('links')->where("id= %d",$id)->find();
             $this->assign('model',$model);
             $this->display();
         }
@@ -89,7 +89,7 @@ class LinksController extends BaseController
     public function delete($id)
     {
         $model = M('links');
-        $result = $model->delete($id);
+        $result = $model->delete(intval($id));
         if($result){
             $this->success("链接删除成功", U('links/index'));
         }else{

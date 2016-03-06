@@ -12,7 +12,7 @@ class MemberController extends BaseController
      */
     public function index($key="")
     {
-        if($key == ""){
+        if($key === ""){
             $model = M('member');  
         }else{
             $where['username'] = array('like',"%$key%");

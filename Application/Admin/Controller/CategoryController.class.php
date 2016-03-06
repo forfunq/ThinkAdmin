@@ -12,7 +12,7 @@ class CategoryController extends BaseController
      */
     public function index($key="")
     {
-        if($key == ""){
+        if($key === ""){
             $model = M('category');  
         }else{
             $where['title'] = array('like',"%$key%");
@@ -94,17 +94,17 @@ class CategoryController extends BaseController
     {
         $model = M('category');
         //查询属于这个分类的文章
-        $posts = M('post')->where('cate_id='.$id)->select();
+        $posts = M('post')->where("cate_id= %d",$id)->select();
         if($posts){
             $this->error("禁止删除含有文章的分类");
         }
         //禁止删除含有子分类的分类
-        $hasChild = $model->where('pid='.$id)->select();
+        $hasChild = $model->where("pid= %d",$id)->select();
         if($hasChild){
             $this->error("禁止删除含有子分类的分类");
         }
         //验证通过
-        $result = $model->delete($id);
+        $result = $model->delete(intval($id));
         if($result){
             $this->success("分类删除成功", U('category/index'));
         }else{
