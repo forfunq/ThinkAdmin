@@ -62,6 +62,7 @@ class LinksController extends BaseController
      */
     public function update($id)
     {
+    		$id = intval($id);
         //默认显示添加表单
         if (!IS_POST) {
             $model = M('links')->where("id= %d",$id)->find();
@@ -88,8 +89,9 @@ class LinksController extends BaseController
      */
     public function delete($id)
     {
+    		$id = intval($id);
         $model = M('links');
-        $result = $model->delete(intval($id));
+        $result = $model->delete($id);
         if($result){
             $this->success("链接删除成功", U('links/index'));
         }else{

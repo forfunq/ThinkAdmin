@@ -65,7 +65,7 @@ class CategoryController extends BaseController
     {
         //默认显示添加表单
         if (!IS_POST) {
-            $model = M('category')->find(I('id'));
+            $model = M('category')->find(I('id',"addslashes"));
           
             $this->assign('cate',getSortedCategory(M('category')->select()));
             $this->assign('model',$model);
@@ -92,6 +92,7 @@ class CategoryController extends BaseController
      */
     public function delete($id)
     {
+    		$id = intval($id);
         $model = M('category');
         //查询属于这个分类的文章
         $posts = M('post')->where("cate_id= %d",$id)->select();
@@ -104,7 +105,7 @@ class CategoryController extends BaseController
             $this->error("禁止删除含有子分类的分类");
         }
         //验证通过
-        $result = $model->delete(intval($id));
+        $result = $model->delete($id);
         if($result){
             $this->success("分类删除成功", U('category/index'));
         }else{

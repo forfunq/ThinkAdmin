@@ -62,6 +62,7 @@ class PageController extends BaseController
      */
     public function update($id)
     {
+    		$id = intval($id);
         //默认显示添加表单
         if (!IS_POST) {
             $model = M('page')->where("id=%d",$id)->find();
@@ -88,6 +89,7 @@ class PageController extends BaseController
      */
     public function delete($id)
     {
+    		$id = intval($id);
         $model = M('page');
         $result = $model->where("id=%d",$id)->delete();
         if($result){
