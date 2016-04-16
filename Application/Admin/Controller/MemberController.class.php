@@ -64,7 +64,7 @@ class MemberController extends BaseController
     {
         //默认显示添加表单
         if (!IS_POST) {
-            $model = M('member')->find(I('id'));
+            $model = M('member')->find(I('id',"addslashes"));
             $this->assign('model',$model);
             $this->display();
         }
@@ -99,6 +99,7 @@ class MemberController extends BaseController
      */
     public function delete($id)
     {
+    	$id = intval($id);
     	if(C('SUPER_ADMIN_ID') == $id) $this->error("超级管理员不可禁用!");
         $model = M('member');
         //查询status字段值

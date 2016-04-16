@@ -65,7 +65,7 @@ class SettingController extends BaseController
     {
         //默认显示添加表单
         if (!IS_POST) {
-            $model = M('setting')->find(I('id'));
+            $model = M('setting')->find(I('id',"addslashes"));
             $this->assign('model',$model);
             $this->display();
         }
@@ -90,10 +90,11 @@ class SettingController extends BaseController
      */
     public function delete($id)
     {
+    		$id = intval($id);
         $model = M('setting');
  
         //验证通过
-        $result = $model->delete(intval($id));
+        $result = $model->delete($id);
         if($result){
             $this->success("字段删除成功", U('setting/index'));
         }else{

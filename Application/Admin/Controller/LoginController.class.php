@@ -19,7 +19,7 @@ class LoginController extends Controller {
             $this->error('验证码错误');
         }
         //验证账号密码是否正确
-        $user = $member->where("username = %s and password= %s",array($username,$password))->find();
+        $user = $member->where("username = '%s' and password= '%s'",array($username,$password))->find();
 
         if(!$user) {
             $this->error('账号或密码错误 :(') ;

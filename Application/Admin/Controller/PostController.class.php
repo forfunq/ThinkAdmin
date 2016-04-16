@@ -12,7 +12,7 @@ class PostController extends BaseController
      */
     public function index($key="")
     {
-        if($key == ""){
+        if($key === ""){
             $model = D('PostView'); 
         }else{
             $where['post.title'] = array('like',"%$key%");
@@ -65,6 +65,7 @@ class PostController extends BaseController
      */
     public function update($id)
     {
+    		$id = intval($id);
         //默认显示添加表单
         if (!IS_POST) {
             $model = M('post')->where("id= %d",$id)->find();
@@ -92,6 +93,7 @@ class PostController extends BaseController
      */
     public function delete($id)
     {
+    		$id = intval($id);
         $model = M('post');
         $result = $model->where("id= %d",$id)->delete();
         if($result){
@@ -100,4 +102,26 @@ class PostController extends BaseController
             $this->error("删除失败");
         }
     }
+	public function push($id) {//post到前台
+		$id = intval($id);
+		if (IS_GET) {
+			$status = M('post') -> where("id= %d",$id) -> getField('status');
+			if ($status === '0') {
+				$data['status'] = 1;
+			} else {
+				$data['status'] = 0;
+			}
+			$result = M('post') -> where("id= %d",$id) -> save($data);
+			if ($result && $data['status'] === 1) {
+				$this -> success("发布成功", U('post/index'));
+			} elseif ($result && $data['status'] === 0) {
+				$this -> success("撤销成功", U('post/index'));
+			} else {
+				$this -> error("操作失败");
+			}
+		} else {
+			pass;
+
+		}
+	}
 }
