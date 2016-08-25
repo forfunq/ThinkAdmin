@@ -10,7 +10,12 @@ namespace Extend;
  *          'token'=>'tokenaccesskey', //填写你设定的key
  *          'encodingaeskey'=>'encodingaeskey', //填写加密用的EncodingAESKey
  *          'appid'=>'wxdk1234567890', //填写高级调用功能的app id
- *          'appsecret'=>'xxxxxxxxxxxxxxxxxxx' //填写高级调用功能的密钥
+ *          'appsecret'=>'xxxxxxxxxxxxxxxxxxx', //填写高级调用功能的密钥
+ *          'db_host' => 'xxxxx', //数据库配置信息
+ *          'db_port' => 'xxxxx', //端口，3306
+ *          'db_user' => 'xxxxx', //数据库用户名
+ *          'db_pwd' => 'xxxxx', //数据库密码
+ *          'db_name' => 'xxxxx', //数据库名
  *      );
  *   $weObj = new Wechat($options);
  *   $weObj->valid();
