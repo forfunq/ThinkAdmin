@@ -207,6 +207,7 @@ class Wechat
     private $appid;
     private $appsecret;
     private $access_token;
+    private $expires_time;
     private $jsapi_ticket;
     private $user_token;
     private $partnerid;
@@ -217,6 +218,13 @@ class Wechat
     private $_funcflag = false;
     private $_receive;
     private $_text_filter = true;
+
+    private $db_host;
+    private $db_port;
+    private $db_user;
+    private $db_pwd;
+    private $db_name;
+
     public $debug =  false;
     public $errCode = 40001;
     public $errMsg = "no access";
@@ -230,6 +238,14 @@ class Wechat
         $this->appsecret = isset($options['appsecret'])?$options['appsecret']:'';
         $this->debug = isset($options['debug'])?$options['debug']:false;
         $this->logcallback = isset($options['logcallback'])?$options['logcallback']:false;
+
+        $this->db_host = isset($options['DB_HOST'])?$options['DB_HOST']:'localhost';
+        $this->db_port = isset($options['DB_PORT'])?$options['DB_PORT']:'3306';
+        $this->db_user = isset($options['DB_USER'])?$options['DB_USER']:'root';
+        $this->db_pwd = isset($options['DB_PWD'])?$options['DB_PWD']:'';
+        $this->db_name = isset($options['DB_NAME'])?$options['DB_NAME']:'';
+
+        $this->checkAuth();
     }
 
     /**
@@ -1170,27 +1186,37 @@ class Wechat
             return $this->access_token;
         }
 
-        $authname = 'wechat_access_token'.$appid;
-        if ($rs = $this->getCache($authname))  {
-            $this->access_token = $rs;
-            return $rs;
+        $con = mysql_connect($this->db_host.':'.$this->db_port, $this->db_user, $this->db_pwd);
+        mysql_select_db($this->db_name, $con);
+        $result = mysql_query("SELECT * FROM `wx_token` WHERE `type` = 'access_token'");
+        while($row = mysql_fetch_array($result))
+        {   
+            $this->access_token = $row['value'];
+            $this->expires_time = $row['expire'];
+            break;
         }
-
-        $result = $this->http_get(self::API_URL_PREFIX.self::AUTH_URL.'appid='.$appid.'&secret='.$appsecret);
-        if ($result)
-        {
-            $json = json_decode($result,true);
-            if (!$json || isset($json['errcode'])) {
-                $this->errCode = $json['errcode'];
-                $this->errMsg = $json['errmsg'];
+        if (!$this->access_token || (time() > ($this->expires_time + 3600)) ){
+            if(!$this->access_token){
+                $access_flag = 1;
+            }
+            $res = $this->http_get(self::API_URL_PREFIX.self::AUTH_URL.'appid='.$appid.'&secret='.$appsecret);
+            $result = json_decode($res, true);
+            if (!$result || isset($result['errcode'])) {
+                $this->errCode = $result['errcode'];
+                $this->errMsg = $result['errmsg'];
                 return false;
             }
-            $this->access_token = $json['access_token'];
-            $expire = $json['expires_in'] ? intval($json['expires_in'])-100 : 3600;
-            $this->setCache($authname,$this->access_token,$expire);
+            $this->access_token = $result["access_token"];
+            $this->expires_time = time();
+            if($access_flag == 1){
+                mysql_query("INSERT into `wx_token` (`type`, `expire`, `value`) VALUES ('access_token', '$this->expires_time', '$this->access_token');");
+            }else{
+                mysql_query("UPDATE `wx_token` SET `expire` = '$this->expires_time', `value` = '$this->access_token' WHERE `type` = 'access_token';");                
+            }
             return $this->access_token;
         }
         return false;
+
     }
 
     /**
