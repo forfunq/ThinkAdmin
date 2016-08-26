@@ -10,12 +10,7 @@ namespace Extend;
  *          'token'=>'tokenaccesskey', //填写你设定的key
  *          'encodingaeskey'=>'encodingaeskey', //填写加密用的EncodingAESKey
  *          'appid'=>'wxdk1234567890', //填写高级调用功能的app id
- *          'appsecret'=>'xxxxxxxxxxxxxxxxxxx', //填写高级调用功能的密钥
- *          'db_host' => 'xxxxx', //数据库配置信息
- *          'db_port' => 'xxxxx', //端口，3306
- *          'db_user' => 'xxxxx', //数据库用户名
- *          'db_pwd' => 'xxxxx', //数据库密码
- *          'db_name' => 'xxxxx', //数据库名
+ *          'appsecret'=>'xxxxxxxxxxxxxxxxxxx' //填写高级调用功能的密钥
  *      );
  *   $weObj = new Wechat($options);
  *   $weObj->valid();
@@ -2012,6 +2007,38 @@ class Wechat
     public function getQRUrl($ticket) {
         return self::QRCODE_IMG_URL.urlencode($ticket);
     }
+
+    /**
+     * 下载二维码到本地
+     * @param string url 二维码的url
+     */    
+    public function downQr($url, $dir='', $filename='qrcode.jpg'){
+        if(!$dir){
+            $dir = dirname(dirname(__FILE__)).'\\Runtime\\';
+        }else{
+            $dir = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $dir);
+            $parts = explode(DIRECTORY_SEPARATOR, $dir);
+            $dir= '';
+            foreach($parts as $part){
+                $dir .= $part.DIRECTORY_SEPARATOR;
+                if(!is_dir($dir)){
+                    mkdir($dir);
+                }
+            }
+        }    
+        $content = $this->http_get($url);
+
+        $local_file = fopen($dir.$filename, 'w');
+        if(false !== $local_file){
+            if(false !== fwrite($local_file, $content)){
+                fclose($local_file);
+                return true;
+            }
+            return 4;
+        }
+        return 3;
+    }
+
 
     /**
      * 长链接转短链接接口
